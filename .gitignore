@@ -10,9 +10,12 @@ output/*
 assets/images/*
 !assets/images/.gitkeep
 
-# Pistes musicales locales (déposées manuellement par l'utilisateur)
+# Pistes musicales : on versionne le pack CC0 (FreePD) fourni avec le repo.
+# Toute piste ajoutée doit être libre de droits (CC0 / domaine public).
 assets/music/*
 !assets/music/README.md
+!assets/music/CREDITS.md
+!assets/music/*.mp3
 
 # Divers
 .DS_Store
@@ -27,3 +30,6 @@ public/current/
 
 # Build Remotion (bundle de test)
 build/
+
+# IDE JetBrains
+.idea/
