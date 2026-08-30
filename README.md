@@ -35,7 +35,7 @@ enchaîne :
 | # | Étape | Outil | Fichier |
 |---|-------|-------|---------|
 | 1 | Sélection d'un thème dans le périmètre autorisé + anti-répétition | — | `src/select_topic.js` |
-| 2 | Génération script + métadonnées JSON | **Gemini 2.5 Flash** (→ Groq si échec) | `src/generate_script.js` |
+| 2 | Génération script + métadonnées JSON | **Gemini Flash** (défaut `gemini-3.6-flash`, → Groq `openai/gpt-oss-120b` si échec) | `src/generate_script.js` |
 | 3 | Voix off française | `edge-tts` | `src/generate_voice.py` |
 | 4 | Sous-titres synchronisés mot par mot | `openai-whisper` (local) | `src/generate_subtitles.py` |
 | 5 | Images de fond verticales | API **Pexels** | `src/fetch_images.py` |

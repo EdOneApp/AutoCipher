@@ -141,8 +141,16 @@ function extractJson(text) {
   return JSON.parse(candidate.slice(start, end + 1));
 }
 
-async function callGemini(prompt) {
-  const model = "gemini-2.5-flash";
+// Les paliers gratuits Gemini changent souvent de nom de modèle : on essaie une
+// liste de candidats (surchargée par GEMINI_MODEL) et on garde le premier qui répond.
+const GEMINI_MODELS = [
+  ...(process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : []),
+  "gemini-3.6-flash",
+  "gemini-flash-latest",
+  "gemini-2.5-flash",
+];
+
+async function callGeminiModel(prompt, model) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${CONFIG.env.geminiKey}`;
   const res = await fetch(url, {
     method: "POST",
@@ -157,7 +165,7 @@ async function callGemini(prompt) {
     }),
   });
   if (!res.ok) {
-    throw new Error(`Gemini HTTP ${res.status}: ${await res.text()}`);
+    throw new Error(`Gemini (${model}) HTTP ${res.status}: ${await res.text()}`);
   }
   const data = await res.json();
   const text = data?.candidates?.[0]?.content?.parts
@@ -165,6 +173,25 @@ async function callGemini(prompt) {
     .join("");
   return extractJson(text);
 }
+
+async function callGemini(prompt) {
+  let lastErr;
+  for (const model of GEMINI_MODELS) {
+    try {
+      return await callGeminiModel(prompt, model);
+    } catch (err) {
+      lastErr = err;
+      // 404 = modèle indisponible → on tente le suivant ; autre erreur → on arrête.
+      if (!/HTTP 404/.test(err.message)) throw err;
+      logg.warn(`Gemini modèle indisponible, essai suivant : ${model}`);
+    }
+  }
+  throw lastErr;
+}
+
+// Modèle Groq surchargeable par GROQ_MODEL. Défaut : gpt-oss-120b (chemin de
+// migration officiel après le retrait de llama-3.3-70b-versatile en juin 2026).
+const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 
 async function callGroq(prompt) {
   const res = await fetch(
@@ -176,7 +203,7 @@ async function callGroq(prompt) {
         Authorization: `Bearer ${CONFIG.env.groqKey}`,
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: GROQ_MODEL,
         temperature: 0.8,
         max_tokens: 2048,
         response_format: { type: "json_object" },
