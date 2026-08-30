@@ -1,0 +1,111 @@
+name: Générer et publier (2 vidéos/jour)
+
+on:
+  schedule:
+    # 2 exécutions/jour (UTC) — 1 vidéo par exécution. Réparties dans la journée.
+    # Reste très en dessous du plafond ~6 uploads/jour du quota YouTube par défaut.
+    - cron: "0 9 * * *"
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Rendu seul, sans upload ni validation"
+        type: boolean
+        default: false
+
+# Évite qu'une exécution de génération et le job de finalisation se marchent
+# dessus au moment du `git push`.
+concurrency:
+  group: autocipher-repo-write
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Installer ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Cache modèles Whisper
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/whisper
+          key: whisper-${{ runner.os }}-base
+
+      - name: npm ci
+        run: npm ci
+
+      - name: pip install
+        run: pip install -r requirements.txt
+
+      - name: Lancer le pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          VALIDATION_EMAIL_TO: ${{ secrets.VALIDATION_EMAIL_TO }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          WHISPER_MODEL: base
+          TARGET_DURATION_SECONDS: "50"
+          APPROVAL_DELAY_HOURS: "2"
+          YOUTUBE_DAILY_UPLOAD_CAP: "6"
+          CHANNEL_HANDLE: ${{ vars.CHANNEL_HANDLE }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node src/orchestrate.js --dry-run
+          else
+            node src/orchestrate.js
+          fi
+
+      - name: Commit de l'état (historique sujets, quota, pending)
+        if: always()
+        run: |
+          git config user.name "autocipher-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/db/*.json
+          if git diff --cached --quiet; then
+            echo "Rien à committer."
+            exit 0
+          fi
+          git commit -m "chore(db): maj état pipeline [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && break || sleep 5
+          done
+
+      - name: Archiver les artefacts du run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-output
+          path: |
+            output/**/summary.json
+            output/**/script.json
+            output/**/video.mp4
+          retention-days: 7
+          if-no-files-found: warn

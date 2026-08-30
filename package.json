@@ -1,0 +1,37 @@
+{
+  "name": "autocipher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pipeline autonome de génération et publication de YouTube Shorts (tech / data / IA / cloud / finance).",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "pipeline": "node src/orchestrate.js",
+    "select-topic": "node src/select_topic.js",
+    "generate-script": "node src/generate_script.js",
+    "request-validation": "node src/request_validation.js",
+    "check-approval": "node src/check_approval.js",
+    "publish": "node src/publish_youtube.js",
+    "oauth-setup": "node src/oauth_setup.js",
+    "remotion:studio": "remotion studio src/remotion/index.ts",
+    "remotion:render": "remotion render src/remotion/index.ts Short output/preview.mp4"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.240",
+    "@remotion/cli": "4.0.240",
+    "@remotion/renderer": "4.0.240",
+    "dotenv": "^16.4.5",
+    "googleapis": "^140.0.1",
+    "nodemailer": "^6.9.14",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.240",
+    "zod": "3.22.3"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "typescript": "5.5.4"
+  }
+}

@@ -1,0 +1,29 @@
+node_modules/
+.env
+.env.local
+
+# Artefacts de génération — jamais commités (volumineux, régénérables)
+output/*
+!output/.gitkeep
+
+# Images téléchargées depuis Pexels pendant un run
+assets/images/*
+!assets/images/.gitkeep
+
+# Pistes musicales locales (déposées manuellement par l'utilisateur)
+assets/music/*
+!assets/music/README.md
+
+# Divers
+.DS_Store
+*.log
+whisper_models/
+__pycache__/
+*.pyc
+.remotion/
+
+# Assets Remotion stagés à chaque run (voix, musique, images) — régénérables
+public/current/
+
+# Build Remotion (bundle de test)
+build/

@@ -1,0 +1,4 @@
+{
+  "published": [],
+  "_comment": "Historique des vidéos dont le sort est réglé (publiées ou rejetées). Alimenté par src/check_approval.js."
+}

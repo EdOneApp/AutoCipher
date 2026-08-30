@@ -1,0 +1,59 @@
+name: Finaliser les publications en attente
+
+on:
+  schedule:
+    # Toutes les 30 min : passe en public les vidéos dont la fenêtre
+    # d'approbation (2 h) est écoulée, applique les rejets « STOP ».
+    # Repo privé : ~48 exécutions courtes/jour. Si le quota de minutes Actions
+    # devient un souci, passer à "0 */2 * * *".
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: autocipher-repo-write
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: npm ci
+        run: npm ci
+
+      - name: Vérifier les approbations / rejets
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node src/check_approval.js
+
+      - name: Commit de l'état (pending, history)
+        if: always()
+        run: |
+          git config user.name "autocipher-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/db/*.json
+          if git diff --cached --quiet; then
+            echo "Rien à committer."
+            exit 0
+          fi
+          git commit -m "chore(db): finalisation publications [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && break || sleep 5
+          done

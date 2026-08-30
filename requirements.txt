@@ -1,0 +1,10 @@
+# Voix off — synthèse neuronale gratuite, aucune clé requise
+edge-tts>=6.1.10
+
+# Sous-titres synchronisés mot par mot (transcription locale, gratuite)
+# openai-whisper tire torch : lourd mais gratuit et suffisant pour 60 s d'audio.
+# Alternative plus légère en CI : faster-whisper (voir README).
+openai-whisper>=20231117
+
+# Appels HTTP (Pexels)
+requests>=2.31.0
