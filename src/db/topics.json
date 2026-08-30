@@ -1,4 +1,12 @@
 {
-  "history": [],
+  "history": [
+    {
+      "category": "developpement-desktop",
+      "angle": "Tauri, l'alternative légère à Electron",
+      "selectedAt": "2026-08-30T19:08:43.180Z",
+      "runId": "20260830T190843Z",
+      "at": "2026-08-30T19:11:30.331Z"
+    }
+  ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
 }

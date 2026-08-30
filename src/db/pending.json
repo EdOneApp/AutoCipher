@@ -1,4 +1,17 @@
 {
-  "pending": [],
+  "pending": [
+    {
+      "id": "20260830T190843Z",
+      "title": "Tauri vs Electron : L'alternative légère pour vos apps desktop",
+      "category": "developpement-desktop",
+      "videoId": "UF0GRTTbi8o",
+      "youtubeUrl": "https://youtu.be/UF0GRTTbi8o",
+      "issueNumber": 1,
+      "issueUrl": "https://github.com/EdOneApp/AutoCipher/issues/1",
+      "createdAt": "2026-08-30T19:11:32.164Z",
+      "publishAfter": "2026-08-30T21:11:32.164Z",
+      "status": "pending"
+    }
+  ],
   "_comment": "Vidéos uploadées sur YouTube en 'private', en attente de passage automatique en 'public' après le délai d'approbation (sauf rejet via commentaire STOP sur l'issue GitHub). Géré par src/request_validation.js et src/check_approval.js."
 }
