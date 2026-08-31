@@ -47,6 +47,18 @@
       "createdAt": "2026-08-31T17:55:09.723Z",
       "publishAfter": "2026-08-31T19:55:09.723Z",
       "status": "pending"
+    },
+    {
+      "id": "20260831T215317Z",
+      "title": "Les 3 règles d'or du Vibe Coding !",
+      "category": "vibe-coding",
+      "videoId": "J8VNRk7pdLY",
+      "youtubeUrl": "https://youtu.be/J8VNRk7pdLY",
+      "issueNumber": 5,
+      "issueUrl": "https://github.com/EdOneApp/AutoCipher/issues/5",
+      "createdAt": "2026-08-31T21:57:24.936Z",
+      "publishAfter": "2026-08-31T23:57:24.936Z",
+      "status": "pending"
     }
   ],
   "_comment": "Vidéos uploadées sur YouTube en 'private', en attente de passage automatique en 'public' après le délai d'approbation (sauf rejet via commentaire STOP sur l'issue GitHub). Géré par src/request_validation.js et src/check_approval.js."
