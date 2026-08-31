@@ -11,6 +11,18 @@
       "createdAt": "2026-08-30T19:11:32.164Z",
       "publishAfter": "2026-08-30T21:11:32.164Z",
       "status": "pending"
+    },
+    {
+      "id": "20260831T094328Z",
+      "title": "ETF vs Actions Individuelles : Que Choisir pour Débuter ?",
+      "category": "finance",
+      "videoId": "xWvb18dbfxA",
+      "youtubeUrl": "https://youtu.be/xWvb18dbfxA",
+      "issueNumber": 2,
+      "issueUrl": "https://github.com/EdOneApp/AutoCipher/issues/2",
+      "createdAt": "2026-08-31T09:46:38.110Z",
+      "publishAfter": "2026-08-31T11:46:38.110Z",
+      "status": "pending"
     }
   ],
   "_comment": "Vidéos uploadées sur YouTube en 'private', en attente de passage automatique en 'public' après le délai d'approbation (sauf rejet via commentaire STOP sur l'issue GitHub). Géré par src/request_validation.js et src/check_approval.js."
