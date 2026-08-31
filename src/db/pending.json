@@ -35,6 +35,18 @@
       "createdAt": "2026-08-31T12:00:23.554Z",
       "publishAfter": "2026-08-31T14:00:23.554Z",
       "status": "pending"
+    },
+    {
+      "id": "20260831T175222Z",
+      "title": "Agents IA : Vraie Révolution ou Simple Hype ?",
+      "category": "intelligence-artificielle",
+      "videoId": "GLnAfPxP854",
+      "youtubeUrl": "https://youtu.be/GLnAfPxP854",
+      "issueNumber": 4,
+      "issueUrl": "https://github.com/EdOneApp/AutoCipher/issues/4",
+      "createdAt": "2026-08-31T17:55:09.723Z",
+      "publishAfter": "2026-08-31T19:55:09.723Z",
+      "status": "pending"
     }
   ],
   "_comment": "Vidéos uploadées sur YouTube en 'private', en attente de passage automatique en 'public' après le délai d'approbation (sauf rejet via commentaire STOP sur l'issue GitHub). Géré par src/request_validation.js et src/check_approval.js."
