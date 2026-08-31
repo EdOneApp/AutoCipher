@@ -23,6 +23,18 @@
       "createdAt": "2026-08-31T09:46:38.110Z",
       "publishAfter": "2026-08-31T11:46:38.110Z",
       "status": "pending"
+    },
+    {
+      "id": "20260831T115759Z",
+      "title": "Comprendre le RAG en 1 minute : la clé des IA sans hallucination",
+      "category": "intelligence-artificielle",
+      "videoId": "PDeSdQv_yeA",
+      "youtubeUrl": "https://youtu.be/PDeSdQv_yeA",
+      "issueNumber": 3,
+      "issueUrl": "https://github.com/EdOneApp/AutoCipher/issues/3",
+      "createdAt": "2026-08-31T12:00:23.554Z",
+      "publishAfter": "2026-08-31T14:00:23.554Z",
+      "status": "pending"
     }
   ],
   "_comment": "Vidéos uploadées sur YouTube en 'private', en attente de passage automatique en 'public' après le délai d'approbation (sauf rejet via commentaire STOP sur l'issue GitHub). Géré par src/request_validation.js et src/check_approval.js."
