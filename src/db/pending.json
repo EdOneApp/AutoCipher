@@ -71,6 +71,18 @@
       "createdAt": "2026-09-01T13:58:08.695Z",
       "publishAfter": "2026-09-01T15:58:08.695Z",
       "status": "pending"
+    },
+    {
+      "id": "20260901T195227Z",
+      "title": "HTMX : Pourquoi cet outil révolutionne le développement web ?",
+      "category": "developpement-web",
+      "videoId": "UkQt-Dh1Qsc",
+      "youtubeUrl": "https://youtu.be/UkQt-Dh1Qsc",
+      "issueNumber": 7,
+      "issueUrl": "https://github.com/EdOneApp/AutoCipher/issues/7",
+      "createdAt": "2026-09-01T19:55:16.785Z",
+      "publishAfter": "2026-09-01T21:55:16.785Z",
+      "status": "pending"
     }
   ],
   "_comment": "Vidéos uploadées sur YouTube en 'private', en attente de passage automatique en 'public' après le délai d'approbation (sauf rejet via commentaire STOP sur l'issue GitHub). Géré par src/request_validation.js et src/check_approval.js."
