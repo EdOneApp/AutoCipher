@@ -11,8 +11,6 @@
     "pipeline": "node src/orchestrate.js",
     "select-topic": "node src/select_topic.js",
     "generate-script": "node src/generate_script.js",
-    "request-validation": "node src/request_validation.js",
-    "check-approval": "node src/check_approval.js",
     "publish": "node src/publish_youtube.js",
     "oauth-setup": "node src/oauth_setup.js",
     "remotion:studio": "remotion studio src/remotion/index.ts",

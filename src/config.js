@@ -116,10 +116,28 @@ export const CONFIG = {
   height: 1920,
   fps: 30,
   targetDurationSeconds: num(process.env.TARGET_DURATION_SECONDS, 50),
-  approvalDelayHours: num(process.env.APPROVAL_DELAY_HOURS, 2),
   topicHistoryLookback: num(process.env.TOPIC_HISTORY_LOOKBACK, 40),
   whisperModel: process.env.WHISPER_MODEL || "base",
-  ttsVoice: process.env.TTS_VOICE || "fr-FR-DeniseNeural",
+  // Voix off : rotation gérée par src/generate_voice.py (pool ci-dessous).
+  // `ttsVoice` ne sert que si on veut FORCER une voix unique via l'env.
+  ttsVoice: process.env.TTS_VOICE || "",
+  ttsVoicePool: (
+    process.env.TTS_VOICE_POOL ||
+    [
+      "fr-FR-DeniseNeural",
+      "fr-FR-HenriNeural",
+      "fr-FR-EloiseNeural",
+      "fr-FR-RemyMultilingualNeural",
+      "fr-FR-VivienneMultilingualNeural",
+      "fr-BE-CharlineNeural",
+      "fr-BE-GerardNeural",
+      "fr-CH-ArianeNeural",
+      "fr-CH-FabriceNeural",
+    ].join(",")
+  )
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean),
   youtubeDailyUploadCap: num(process.env.YOUTUBE_DAILY_UPLOAD_CAP, 6),
   imagesPerVideo: 6,
 
@@ -129,9 +147,8 @@ export const CONFIG = {
     music: path.join(ROOT, "assets", "music"),
     images: path.join(ROOT, "assets", "images"),
     topicsDb: path.join(ROOT, "src", "db", "topics.json"),
-    pendingDb: path.join(ROOT, "src", "db", "pending.json"),
-    historyDb: path.join(ROOT, "src", "db", "history.json"),
     quotaDb: path.join(ROOT, "src", "db", "quota.json"),
+    voiceDb: path.join(ROOT, "src", "db", "voice.json"),
   },
 
   env: {

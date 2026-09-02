@@ -7,9 +7,9 @@
  * run échoue en cours de route.
  *
  * Modes :
- *   node src/orchestrate.js            → pipeline complet (jusqu'à la validation)
- *   node src/orchestrate.js --dry-run  → s'arrête après le rendu (pas d'upload,
- *                                        pas d'email, pas d'issue) — pour tester
+ *   node src/orchestrate.js            → pipeline complet (rendu + publication
+ *                                        YouTube DIRECTE en public)
+ *   node src/orchestrate.js --dry-run  → s'arrête après le rendu (pas d'upload)
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -20,13 +20,12 @@ import { createLogger } from "./lib/logger.js";
 import { selectTopic } from "./select_topic.js";
 import { generateScript } from "./generate_script.js";
 import { renderVideo } from "./render_video.js";
-import { uploadPrivate } from "./publish_youtube.js";
-import { requestValidation } from "./request_validation.js";
+import { uploadVideo } from "./publish_youtube.js";
 
 const logg = createLogger("orchestrate");
 const DRY_RUN = process.argv.includes("--dry-run");
 const PYTHON = process.env.PYTHON_BIN || "python3";
-const TOTAL_STEPS = DRY_RUN ? 6 : 8;
+const TOTAL_STEPS = DRY_RUN ? 6 : 7;
 
 function runPython(script, runDir, extraArgs = []) {
   const res = spawnSync(
@@ -127,22 +126,17 @@ async function main() {
     return;
   }
 
-  // 7 — Upload YouTube en privé
-  logg.step(7, TOTAL_STEPS, "Upload YouTube (privacyStatus=private)");
-  const upload = await uploadPrivate(runDir);
+  // 7 — Upload YouTube DIRECT en public (plus de validation ni de délai)
+  logg.step(7, TOTAL_STEPS, "Publication YouTube (privacyStatus=public)");
+  const upload = await uploadVideo(runDir, { privacyStatus: "public" });
   fs.writeFileSync(
     path.join(runDir, "upload.json"),
     JSON.stringify(upload, null, 2)
   );
   summary.youtube = upload;
 
-  // 8 — Demande de validation (issue + email + entrée pending)
-  logg.step(8, TOTAL_STEPS, "Demande de validation (issue GitHub + email)");
-  const validation = await requestValidation(runDir, upload);
-  summary.validation = validation;
-
   summary.finishedAt = new Date().toISOString();
-  summary.status = "pending-validation";
+  summary.status = "published";
   fs.writeFileSync(
     path.join(runDir, "summary.json"),
     JSON.stringify(summary, null, 2)
@@ -150,8 +144,7 @@ async function main() {
 
   logg.info(
     `RUN ${runId} OK en ${((Date.now() - startedAt) / 1000).toFixed(0)}s. ` +
-      `Vidéo privée en ligne, publication auto le ${validation.publishAfter} ` +
-      `sauf STOP sur ${validation.issueUrl}`
+      `Vidéo publiée en public : ${upload.url}`
   );
 }
 

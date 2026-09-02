@@ -1,0 +1,7 @@
+{
+  "last": null,
+  "recent": [],
+  "pool_size": 9,
+  "updatedAt": null,
+  "_comment": "Rotation des voix off edge-tts. `recent` = voix des derniers runs, évitées au prochain tirage. Géré par src/generate_voice.py, committé par le workflow."
+}

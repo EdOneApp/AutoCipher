@@ -1,13 +1,16 @@
-name: Finaliser les publications en attente
+name: Rattrapage — publier les vidéos privées en attente
 
+# Déclenchement MANUEL uniquement (onglet Actions → Run workflow).
+# Bascule en `public` les vidéos listées dans src/db/backlog.json restées
+# `private` du temps de l'ancien flux de validation. À lancer une fois, puis
+# ce workflow et src/db/backlog.json peuvent être supprimés.
 on:
-  schedule:
-    # Toutes les 30 min : passe en public les vidéos dont la fenêtre
-    # d'approbation (2 h) est écoulée, applique les rejets « STOP ».
-    # Repo privé : ~48 exécutions courtes/jour. Si le quota de minutes Actions
-    # devient un souci, passer à "0 */2 * * *".
-    - cron: "*/30 * * * *"
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Lister seulement, sans rien publier"
+        type: boolean
+        default: false
 
 concurrency:
   group: autocipher-repo-write
@@ -15,10 +18,9 @@ concurrency:
 
 permissions:
   contents: write
-  issues: write
 
 jobs:
-  finalize:
+  backlog:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -34,26 +36,29 @@ jobs:
       - name: npm ci
         run: npm ci
 
-      - name: Vérifier les approbations / rejets
+      - name: Publier le backlog
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: node src/check_approval.js
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node src/publish_backlog.js --dry-run
+          else
+            node src/publish_backlog.js
+          fi
 
-      - name: Commit de l'état (pending, history)
+      - name: Commit du backlog mis à jour
         if: always()
         run: |
           git config user.name "autocipher-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/db/*.json
+          git add src/db/backlog.json
           if git diff --cached --quiet; then
             echo "Rien à committer."
             exit 0
           fi
-          git commit -m "chore(db): finalisation publications [skip ci]"
+          git commit -m "chore(db): rattrapage backlog publié [skip ci]"
           for i in 1 2 3; do
             git pull --rebase --autostash && git push && break || sleep 5
           done

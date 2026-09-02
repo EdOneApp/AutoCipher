@@ -1,8 +1,9 @@
 # AutoCipher
 
 Pipeline **autonome** de génération et publication de **YouTube Shorts** sur des
-sujets **tech / data / IA / cloud / finance**, orchestré par **GitHub Actions**,
-avec un **garde-fou humain léger** (validation par email + délai automatique).
+sujets **tech / data / IA / cloud / finance**, orchestré par **GitHub Actions**.
+Chaque vidéo est **publiée directement en public** (aucune étape de validation),
+à raison de **4 vidéos/jour** avec une **voix off qui change à chaque run**.
 
 **Budget : 0 €.** Tous les services utilisés ont un palier gratuit permanent.
 La génération de texte passe par l'**API Google Gemini** (gratuite), avec
@@ -21,7 +22,6 @@ La génération de texte passe par l'**API Google Gemini** (gratuite), avec
 - [Configurer les secrets GitHub](#configurer-les-secrets-github)
 - [Tester en local](#tester-en-local)
 - [Fonctionnement en production](#fonctionnement-en-production)
-- [Mécanisme de validation](#mécanisme-de-validation)
 - [Limites connues](#limites-connues)
 - [Dépannage](#dépannage)
 
@@ -29,25 +29,18 @@ La génération de texte passe par l'**API Google Gemini** (gratuite), avec
 
 ## Ce que fait le pipeline
 
-À chaque exécution planifiée (**2×/jour**), l'orchestrateur `src/orchestrate.js`
-enchaîne :
+À chaque exécution planifiée (**4×/jour** — minuit, 8 h, 16 h, 20 h heure de
+Côte d'Ivoire), l'orchestrateur `src/orchestrate.js` enchaîne :
 
 | # | Étape | Outil | Fichier |
 |---|-------|-------|---------|
 | 1 | Sélection d'un thème dans le périmètre autorisé + anti-répétition | — | `src/select_topic.js` |
 | 2 | Génération script + métadonnées JSON | **Gemini Flash** (défaut `gemini-3.6-flash`, → Groq `openai/gpt-oss-120b` si échec) | `src/generate_script.js` |
-| 3 | Voix off française | `edge-tts` | `src/generate_voice.py` |
+| 3 | Voix off française — **voix tirée au sort à chaque run** (pool FR/BE/CH, H+F) | `edge-tts` | `src/generate_voice.py` |
 | 4 | Sous-titres synchronisés mot par mot | `openai-whisper` (local) | `src/generate_subtitles.py` |
 | 5 | Images de fond verticales | API **Pexels** | `src/fetch_images.py` |
 | 6 | Montage (Ken Burns + sous-titres karaoké + voix + musique) | **Remotion** | `src/render_video.js` + `src/remotion/` |
-| 7 | Upload YouTube en **`private`** | YouTube Data API v3 | `src/publish_youtube.js` |
-| 8 | Issue GitHub + email de validation + entrée `pending` | Octokit REST + Nodemailer | `src/request_validation.js` |
-
-Puis, séparément, **toutes les 30 min** (`.github/workflows/finalize-publish.yml`) :
-
-| Étape | Description | Fichier |
-|-------|-------------|---------|
-| Finalisation | Passe la vidéo en **`public`** après 2 h si aucun rejet ; applique les `STOP` | `src/check_approval.js` |
+| 7 | Upload YouTube **directement en `public`** | YouTube Data API v3 | `src/publish_youtube.js` |
 
 En cas d'erreur à **n'importe quelle étape**, le pipeline s'arrête (`exit 1`) :
 aucune vidéo incomplète n'est jamais uploadée ni publiée.
@@ -61,16 +54,15 @@ Choix retenus (modifiables via variables d'environnement / `src/config.js`) :
 | Paramètre | Valeur | Variable |
 |-----------|--------|----------|
 | Format | **Short vertical 1080×1920, ~50 s** | `VIDEO_FORMAT`, `TARGET_DURATION_SECONDS` |
-| Volume | **2 vidéos/jour** (2 crons) | fréquence des crons dans le workflow |
-| Validation | **Email + délai auto 2 h** (rejet via commentaire `STOP`) | `APPROVAL_DELAY_HOURS` |
-| Voix off | **edge-tts**, `fr-FR-DeniseNeural` | `TTS_VOICE` |
+| Volume | **4 vidéos/jour** (4 crons : 00 h, 08 h, 16 h, 20 h) | fréquence des crons dans le workflow |
+| Publication | **Directe en `public`** — aucune validation, aucun délai | — |
+| Voix off | **edge-tts**, **rotation** dans un pool de 9 voix FR/BE/CH (H+F), la voix change à chaque run et évite les 3 dernières | `TTS_VOICE_POOL`, `TTS_VOICE` (forcer une voix), `TTS_VOICE_AVOID_LAST` |
 | Plafond upload/jour | **6** (quota YouTube par défaut : 10 000 u, 1 600 u/upload) | `YOUTUBE_DAILY_UPLOAD_CAP` |
 
-> **Pourquoi la vidéo est uploadée en `private` *avant* la validation ?**
-> C'est le moyen le plus simple et gratuit d'obtenir un lien de prévisualisation
-> fiable, sans avoir à héberger la vidéo ailleurs ni à faire dormir un runner
-> GitHub pendant 2 h (ce qui gaspillerait le quota de minutes). Si vous rejetez,
-> la vidéo **reste en privé** (ou est supprimée) et n'est jamais rendue visible.
+> **Rotation des voix.** `src/generate_voice.py` tire une voix au sort dans
+> `DEFAULT_VOICE_POOL` en excluant les dernières utilisées ; l'état est persisté
+> dans `src/db/voice.json` (committé par le workflow, donc la rotation continue
+> d'un run à l'autre). Pour forcer une voix unique : `TTS_VOICE=fr-FR-HenriNeural`.
 
 ---
 
@@ -99,27 +91,23 @@ proprement** (pas de contournement).
 ```
 AutoCipher/
 ├── .github/workflows/
-│   ├── generate-and-publish.yml   # cron 2×/jour : génère 1 vidéo + demande validation
-│   └── finalize-publish.yml       # cron /30min : publie après délai / applique les STOP
+│   └── generate-and-publish.yml   # cron 4×/jour : génère 1 vidéo + publie en public
 ├── src/
-│   ├── config.js                  # config centrale + périmètre + réservoir de sujets
+│   ├── config.js                  # config centrale + périmètre + réservoir de sujets + pool de voix
 │   ├── orchestrate.js             # enchaînement de toutes les étapes
 │   ├── select_topic.js            # étape 1
 │   ├── generate_script.js         # étape 2 — Gemini (+ fallback Groq)
-│   ├── generate_voice.py          # étape 3 — edge-tts
+│   ├── generate_voice.py          # étape 3 — edge-tts + rotation des voix
 │   ├── generate_subtitles.py      # étape 4 — Whisper
 │   ├── fetch_images.py            # étape 5 — Pexels
 │   ├── render_video.js            # étape 6 — staging + appel Remotion
-│   ├── request_validation.js      # étape 7 — issue GitHub + email
-│   ├── publish_youtube.js         # étape 8 — upload + gestion quota + changement de visibilité
-│   ├── check_approval.js          # job différé — finalisation
+│   ├── publish_youtube.js         # étape 7 — upload public + gestion quota
 │   ├── oauth_setup.js             # utilitaire OAuth2 YouTube (one-shot, local)
-│   ├── lib/                       # logger, store JSON atomique, client GitHub, email
+│   ├── lib/                       # logger, store JSON atomique
 │   ├── remotion/                  # Root.tsx, Composition.tsx, SubtitleWord.tsx, schema.ts
 │   └── db/
 │       ├── topics.json            # historique des sujets traités (anti-répétition)
-│       ├── pending.json           # vidéos en attente de passage public
-│       ├── history.json           # vidéos publiées / rejetées
+│       ├── voice.json             # état de rotation des voix off
 │       └── quota.json             # compteur d'uploads YouTube du jour
 ├── assets/
 │   ├── music/                     # VOS pistes libres de droits (voir assets/music/README.md)
@@ -166,13 +154,8 @@ votre compte — l'API YouTube reste dans le palier gratuit).
    *APIs & Services → Quotas*). Un upload coûte **1 600 u** → **~6 uploads/jour**
    max. Une augmentation se demande via un formulaire Google (revue manuelle).
 
-### 4. Gmail (envoi d'email) — `GMAIL_USER`, `GMAIL_APP_PASSWORD`
-1. Activer la **validation en 2 étapes** sur le compte Gmail.
-2. <https://myaccount.google.com/apppasswords> → générer un **mot de passe
-   d'application** (16 caractères).
-3. `GMAIL_USER` = l'adresse ; `GMAIL_APP_PASSWORD` = ce mot de passe
-   d'application (jamais le mot de passe principal).
-4. Optionnel : `VALIDATION_EMAIL_TO` si le destinataire diffère de `GMAIL_USER`.
+> Il n'y a **pas** de clé Gmail à configurer : le pipeline ne publie plus
+> d'email de validation (publication directe en public).
 
 ---
 
@@ -208,12 +191,9 @@ npm run oauth-setup
 | `YOUTUBE_CLIENT_ID` | Google Cloud Console (OAuth client) |
 | `YOUTUBE_CLIENT_SECRET` | Google Cloud Console (OAuth client) |
 | `YOUTUBE_REFRESH_TOKEN` | `npm run oauth-setup` |
-| `GMAIL_USER` | votre adresse Gmail |
-| `GMAIL_APP_PASSWORD` | mot de passe d'application Google |
-| `VALIDATION_EMAIL_TO` | *(optionnel)* destinataire de l'email |
 
-`GITHUB_TOKEN` est **fourni automatiquement** par GitHub Actions (permissions
-`contents: write` + `issues: write` déjà déclarées dans les workflows).
+`GITHUB_TOKEN` est **fourni automatiquement** par GitHub Actions (permission
+`contents: write` déjà déclarée dans le workflow, pour committer `src/db/*.json`).
 
 *(Optionnel)* **Variables** (onglet *Variables*, pas *Secrets*) :
 `CHANNEL_HANDLE` = `@votrechaine` (affiché en haut de la vidéo).
@@ -237,7 +217,7 @@ cp .env.example .env         # puis remplir les clés
 npm install
 pip install -r requirements.txt
 
-# Pipeline complet SANS upload/email/issue — s'arrête après le rendu :
+# Pipeline complet SANS upload — s'arrête après le rendu :
 node src/orchestrate.js --dry-run
 # → produit output/<runId>/video.mp4
 ```
@@ -254,8 +234,7 @@ RUN_DIR=output/test node src/render_video.js
 npm run remotion:studio          # prévisualiser la composition dans le navigateur
 ```
 
-Pipeline complet réel (upload privé + email + issue) : `node src/orchestrate.js`.
-Finalisation manuelle : `node src/check_approval.js`.
+Pipeline complet réel (rendu + **upload public direct**) : `node src/orchestrate.js`.
 
 > **ffmpeg** est requis localement pour `edge-tts`/`ffprobe` et le rendu.
 > macOS : `brew install ffmpeg`. En CI, il est installé par le workflow.
@@ -268,35 +247,27 @@ Finalisation manuelle : `node src/check_approval.js`.
 ## Fonctionnement en production
 
 1. **Activer les workflows** : onglet *Actions* du dépôt → *I understand… enable*.
-2. Les 2 crons de `generate-and-publish.yml` produisent **1 vidéo chacun**
-   (2/jour), l'uploadent en **privé** et créent une **issue `validation`** + un
-   **email**.
-3. `finalize-publish.yml` (toutes les 30 min) passe la vidéo en **public** au
-   bout de **2 h** si personne n'a répondu `STOP`.
-4. L'état (`src/db/*.json`) est **committé automatiquement** dans le dépôt par les
-   workflows (`[skip ci]`), ce qui sert d'historique persistant.
+2. Les 4 crons de `generate-and-publish.yml` produisent **1 vidéo chacun**
+   (4/jour, à 00 h / 08 h / 16 h / 20 h heure de Côte d'Ivoire) et l'**uploadent
+   directement en `public`**. Il n'y a plus ni issue, ni email, ni délai.
+3. La voix off **change à chaque run** (rotation dans le pool, cf. *Décisions de
+   conception*).
+4. L'état (`src/db/*.json` : `topics.json`, `voice.json`, `quota.json`) est
+   **committé automatiquement** dans le dépôt par le workflow (`[skip ci]`), ce
+   qui sert d'historique persistant.
 
-### Recommandation de démarrage (2 premières semaines)
+> ⚠️ **Plus de garde-fou humain.** Chaque vidéo générée est publiée telle quelle.
+> Le seul filtre restant est *préventif* (contraintes du prompt de génération,
+> cf. *Périmètre de contenu*). Surveillez la chaîne les premiers jours.
 
-Pour vérifier la fiabilité, augmentez temporairement le délai à
-`APPROVAL_DELAY_HOURS: "999"` dans `generate-and-publish.yml` : la vidéo ne
-partira alors en public que si **vous** commentez explicitement (ou en abaissant
-le délai plus tard). Repassez à `"2"` une fois confiant.
+### Rattrapage des vidéos privées (ancien flux)
 
----
-
-## Mécanisme de validation
-
-- **Canal de rejet fiable : l'issue GitHub.** Chaque vidéo en attente a une
-  issue avec label `validation`. Y ajouter un commentaire contenant **`STOP`**
-  (ou `ANNULER`, `REJET`, `CANCEL`) avant l'échéance ⇒ la vidéo **reste privée**
-  et l'issue est close en `not_planned`.
-- **Email** : reçu en parallèle, avec le script complet, les métadonnées, le
-  lien YouTube privé et (si < 20 Mo) la vidéo en pièce jointe. L'email contient
-  le lien direct vers l'issue. *(Répondre au mail ne suffit pas — c'est le
-  commentaire d'issue qui fait foi ; l'email est là pour vous notifier.)*
-- **Sans rejet** : `check_approval.js` bascule la vidéo en `public`, commente
-  l'issue avec le lien final et la close en `completed`.
+Les 7 vidéos uploadées en `private` avant ce changement sont listées dans
+`src/db/backlog.json`. Pour les rendre publiques d'un coup : onglet *Actions* →
+**Rattrapage — publier les vidéos privées en attente** → *Run workflow*
+(ou `node src/publish_backlog.js` en local). Ensuite, `backlog.json`,
+`src/publish_backlog.js` et `.github/workflows/publish-backlog.yml` peuvent être
+supprimés.
 
 ---
 
@@ -304,12 +275,13 @@ le délai plus tard). Repassez à `"2"` une fois confiant.
 
 - **Quota YouTube** : ~6 uploads/jour avec le quota par défaut. Le compteur
   `src/db/quota.json` bloque tout upload au-delà de `YOUTUBE_DAILY_UPLOAD_CAP`.
+  Avec 4 vidéos/jour on reste sous ce plafond (garde une marge pour les
+  déclenchements manuels).
 - **Minutes GitHub Actions** : dépôt privé = 2 000 min/mois gratuites. Le rendu
-  Remotion + Whisper prend ~5–12 min/run ; `finalize-publish` ~1 min ×48/jour.
-  Sur dépôt **public**, les minutes sont illimitées → recommandé. Sinon,
-  espacer `finalize-publish` (`0 */2 * * *`).
-- **Fenêtre d'approbation** : la granularité réelle est de 30 min (cron de
-  finalisation), donc la publication a lieu entre 2 h 00 et 2 h 30 après l'upload.
+  Remotion + Whisper prend ~5–12 min/run, soit ~4×/jour. Sur dépôt **public**,
+  les minutes sont illimitées → recommandé.
+- **Publication immédiate** : aucune fenêtre de relecture. Une vidéo ratée est
+  publique dès la fin du run ; il faut la retirer manuellement sur YouTube.
 - **Whisper en CI** : le modèle `base` est mis en cache entre runs ; le premier
   run est plus lent (téléchargement du modèle).
 - **Fact-checking** : purement *préventif* (contraintes de prompt). Il ne
@@ -330,14 +302,14 @@ le délai plus tard). Repassez à `"2"` une fois confiant.
 | `Plafond d'uploads YouTube atteint` | Normal si 6 uploads déjà faits aujourd'hui (UTC). |
 | `videos.insert a échoué … quotaExceeded` | Quota Google réel dépassé ; attendre le reset (minuit Pacifique). |
 | Pas de refresh token | Révoquer l'accès dans myaccount.google.com/permissions, relancer `oauth-setup`. |
-| `GMAIL … Invalid login` | Utiliser un **mot de passe d'application**, pas le mot de passe du compte. |
+| La voix ne change pas | Vérifier que `src/db/voice.json` est bien committé par le workflow ; `TTS_VOICE` défini force une voix unique. |
 | Rendu Remotion échoue en CI | Vérifier que `ffmpeg` est bien installé (étape du workflow) et la RAM du runner. |
-| L'issue n'est pas créée | `GITHUB_TOKEN` sans permission `issues: write`, ou `GITHUB_REPOSITORY` absent en local. |
+| L'état n'est pas committé | `GITHUB_TOKEN` sans permission `contents: write`. |
 
 ---
 
 ## Licence & responsabilité
 
-Vous êtes responsable du contenu publié sur votre chaîne. Ce pipeline est un
-outil d'assistance : **gardez le garde-fou humain actif** tant que vous n'avez
-pas une confiance élevée dans la qualité des scripts générés.
+Vous êtes responsable du contenu publié sur votre chaîne. Ce pipeline publie
+**automatiquement en public**, sans relecture : surveillez la chaîne de près,
+surtout au démarrage, et retirez manuellement toute vidéo problématique.

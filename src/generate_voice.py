@@ -5,6 +5,10 @@ Lit  : <RUN_DIR>/script.json  (champ "script_complet")
 Écrit: <RUN_DIR>/voice.mp3
        <RUN_DIR>/voice.json   ({"duration": <secondes>, "voice": ..., "chars": N})
 
+La voix CHANGE à chaque run : elle est tirée au sort dans VOICE_POOL en évitant
+les 3 dernières utilisées (état persistant dans src/db/voice.json, committé par
+le workflow). Forcer une voix : --voice fr-FR-HenriNeural  ou  env TTS_VOICE.
+
 Usage:
     RUN_DIR=output/20260830T120000 python src/generate_voice.py
     python src/generate_voice.py --run-dir output/xxx --voice fr-FR-HenriNeural
@@ -15,14 +19,87 @@ import argparse
 import asyncio
 import json
 import os
+import random
 import subprocess
 import sys
 from pathlib import Path
 
-DEFAULT_VOICE = os.environ.get("TTS_VOICE", "fr-FR-DeniseNeural")
+# Voix off françaises edge-tts, hommes et femmes, plusieurs accents (FR, BE, CH).
+# Surchargeable via TTS_VOICE_POOL="voixA,voixB,...".
+DEFAULT_VOICE_POOL = [
+    "fr-FR-DeniseNeural",
+    "fr-FR-HenriNeural",
+    "fr-FR-EloiseNeural",
+    "fr-FR-RemyMultilingualNeural",
+    "fr-FR-VivienneMultilingualNeural",
+    "fr-BE-CharlineNeural",
+    "fr-BE-GerardNeural",
+    "fr-CH-ArianeNeural",
+    "fr-CH-FabriceNeural",
+]
+VOICE_POOL = [
+    v.strip()
+    for v in os.environ.get("TTS_VOICE_POOL", ",".join(DEFAULT_VOICE_POOL)).split(",")
+    if v.strip()
+] or DEFAULT_VOICE_POOL
+
+# Chemin de l'état de rotation (relatif à la racine du repo = cwd du pipeline).
+VOICE_STATE_PATH = Path(os.environ.get("TTS_VOICE_STATE", "src/db/voice.json"))
+# On évite de réutiliser une voix vue dans les N derniers runs.
+VOICE_AVOID_LAST = int(os.environ.get("TTS_VOICE_AVOID_LAST", "3"))
+
+# Voix forcée éventuelle (sinon rotation). --voice a la priorité sur l'env.
+FORCED_VOICE = os.environ.get("TTS_VOICE", "").strip()
 # Léger ralentissement = diction plus posée, meilleure synchro sous-titres.
 DEFAULT_RATE = os.environ.get("TTS_RATE", "-4%")
 DEFAULT_PITCH = os.environ.get("TTS_PITCH", "+0Hz")
+
+
+def pick_rotating_voice() -> str:
+    """Tire une voix du pool en évitant les VOICE_AVOID_LAST dernières."""
+    state = {"recent": []}
+    try:
+        if VOICE_STATE_PATH.exists():
+            state = json.loads(VOICE_STATE_PATH.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        print(f"[generate_voice] état voix illisible ({exc}) — on repart de zéro.")
+
+    recent = [v for v in state.get("recent", []) if v in VOICE_POOL]
+    avoid = set(recent[-VOICE_AVOID_LAST:])
+    choices = [v for v in VOICE_POOL if v not in avoid] or VOICE_POOL
+    voice = random.choice(choices)
+
+    recent.append(voice)
+    recent = recent[-max(VOICE_AVOID_LAST * 3, 12):]
+    try:
+        VOICE_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        VOICE_STATE_PATH.write_text(
+            json.dumps(
+                {
+                    "last": voice,
+                    "recent": recent,
+                    "pool_size": len(VOICE_POOL),
+                    "updatedAt": _now_iso(),
+                    "_comment": (
+                        "Rotation des voix off edge-tts. `recent` = voix des "
+                        "derniers runs, évitées au prochain tirage. Géré par "
+                        "src/generate_voice.py, committé par le workflow."
+                    ),
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+    except Exception as exc:  # noqa: BLE001
+        print(f"[generate_voice] impossible d'écrire {VOICE_STATE_PATH} ({exc}).")
+    return voice
+
+
+def _now_iso() -> str:
+    from datetime import datetime, timezone
+
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
 def ffprobe_duration(path: Path) -> float:
@@ -58,8 +135,24 @@ async def synth(text: str, out_mp3: Path, voice: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-dir", default=os.environ.get("RUN_DIR", "output"))
-    parser.add_argument("--voice", default=DEFAULT_VOICE)
+    parser.add_argument(
+        "--voice",
+        default=None,
+        help="Force une voix précise. Sinon : env TTS_VOICE, sinon rotation.",
+    )
     args = parser.parse_args()
+
+    # Priorité : --voice > env TTS_VOICE > rotation dans le pool.
+    if args.voice:
+        voice = args.voice
+        print(f"[generate_voice] voix forcée (--voice) : {voice}")
+    elif FORCED_VOICE:
+        voice = FORCED_VOICE
+        print(f"[generate_voice] voix forcée (TTS_VOICE) : {voice}")
+    else:
+        voice = pick_rotating_voice()
+        print(f"[generate_voice] voix tirée au sort : {voice} (pool {len(VOICE_POOL)})")
+    args.voice = voice
 
     run_dir = Path(args.run_dir)
     script_path = run_dir / "script.json"

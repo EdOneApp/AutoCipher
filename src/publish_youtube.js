@@ -1,13 +1,12 @@
 /**
- * Étape 8 — Publication YouTube via l'API Data v3 (officielle, gratuite).
+ * Étape 7 — Publication YouTube via l'API Data v3 (officielle, gratuite).
  *
- * Flux du pipeline (validation par email avec délai auto) :
- *   1. `uploadPrivate(runDir)`  → upload la vidéo en `private` (coût 1600 u).
- *   2. plus tard, `setPrivacy(id, "public")` si pas de rejet (coût ~50 u),
- *      ou `setPrivacy(id, "private")` / `deleteVideo(id)` si rejet.
+ * Flux du pipeline : `uploadVideo(runDir)` publie la vidéo DIRECTEMENT en
+ * `public` (coût 1600 u). Il n'y a plus d'étape de validation ni de passage
+ * différé privé → public.
  *
  * Garde-fou quota : compteur d'uploads/jour (src/db/quota.json). Au-delà de
- * YOUTUBE_DAILY_UPLOAD_CAP (défaut 6), `uploadPrivate` refuse de continuer.
+ * YOUTUBE_DAILY_UPLOAD_CAP (défaut 6), `uploadVideo` refuse de continuer.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -53,7 +52,7 @@ function checkAndBumpQuota() {
   return uploads + 1;
 }
 
-export async function uploadPrivate(runDir) {
+export async function uploadVideo(runDir, { privacyStatus = "public" } = {}) {
   const script = JSON.parse(
     fs.readFileSync(path.join(runDir, "script.json"), "utf8")
   );
@@ -73,7 +72,7 @@ export async function uploadPrivate(runDir) {
   // Un Short vertical <60s est détecté automatiquement ; #Shorts aide.
   const description = `${script.description}\n\n#Shorts`;
 
-  logg.info("Upload en cours (privacyStatus=private)...", {
+  logg.info(`Upload en cours (privacyStatus=${privacyStatus})...`, {
     titre: script.titre,
     categoryId,
   });
@@ -92,7 +91,7 @@ export async function uploadPrivate(runDir) {
           defaultAudioLanguage: "fr",
         },
         status: {
-          privacyStatus: "private",
+          privacyStatus,
           selfDeclaredMadeForKids: false,
           madeForKids: false,
         },
@@ -107,7 +106,7 @@ export async function uploadPrivate(runDir) {
 
   const videoId = res.data.id;
   const url = `https://youtu.be/${videoId}`;
-  logg.info(`Upload OK — ${url} (privé)`);
+  logg.info(`Upload OK — ${url} (${privacyStatus})`);
 
   // Miniature optionnelle
   const thumb = path.join(runDir, "thumbnail.jpg");
@@ -123,7 +122,7 @@ export async function uploadPrivate(runDir) {
     }
   }
 
-  return { videoId, url, privacyStatus: "private" };
+  return { videoId, url, privacyStatus };
 }
 
 export async function setPrivacy(videoId, privacyStatus) {
@@ -148,7 +147,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const [, , cmd, arg] = process.argv;
   if (cmd === "upload") {
     const runDir = arg || process.env.RUN_DIR || CONFIG.paths.output;
-    console.log(await uploadPrivate(runDir));
+    console.log(await uploadVideo(runDir));
   } else if (cmd === "public" && arg) {
     await setPrivacy(arg, "public");
   } else if (cmd === "private" && arg) {

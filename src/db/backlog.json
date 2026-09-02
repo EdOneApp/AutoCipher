@@ -1,0 +1,12 @@
+{
+  "videos": [
+    { "videoId": "UF0GRTTbi8o", "title": "Tauri vs Electron : L'alternative légère pour vos apps desktop" },
+    { "videoId": "xWvb18dbfxA", "title": "ETF vs Actions Individuelles : Que Choisir pour Débuter ?" },
+    { "videoId": "PDeSdQv_yeA", "title": "Comprendre le RAG en 1 minute : la clé des IA sans hallucination" },
+    { "videoId": "GLnAfPxP854", "title": "Agents IA : Vraie Révolution ou Simple Hype ?" },
+    { "videoId": "J8VNRk7pdLY", "title": "Les 3 règles d'or du Vibe Coding !" },
+    { "videoId": "SgvIz_RI26A", "title": "IA : Comment la quantification rend les modèles plus légers ?" },
+    { "videoId": "UkQt-Dh1Qsc", "title": "HTMX : Pourquoi cet outil révolutionne le développement web ?" }
+  ],
+  "_comment": "Vidéos uploadées en 'private' par l'ancien flux de validation et jamais passées en 'public'. `node src/publish_backlog.js` (ou le workflow publish-backlog.yml, déclenchement manuel) les bascule toutes en 'public'. À supprimer une fois le rattrapage fait."
+}
