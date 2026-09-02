@@ -1,7 +1,9 @@
 {
-  "last": null,
-  "recent": [],
+  "last": "fr-CH-FabriceNeural",
+  "recent": [
+    "fr-CH-FabriceNeural"
+  ],
   "pool_size": 9,
-  "updatedAt": null,
+  "updatedAt": "2026-09-02T12:14:21+00:00",
   "_comment": "Rotation des voix off edge-tts. `recent` = voix des derniers runs, évitées au prochain tirage. Géré par src/generate_voice.py, committé par le workflow."
 }
