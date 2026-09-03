@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-02",
-  "uploads": 3,
+  "date": "2026-09-03",
+  "uploads": 1,
   "_comment": "Compteur d'uploads YouTube du jour (UTC). Réinitialisé automatiquement au changement de date par src/publish_youtube.js. Empêche de dépasser le plafond de quota (~6 uploads/jour avec le quota par défaut de 10000 unités)."
 }
