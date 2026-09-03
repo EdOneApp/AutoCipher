@@ -90,6 +90,13 @@
       "selectedAt": "2026-09-03T19:16:10.052Z",
       "runId": "20260903T191610Z",
       "at": "2026-09-03T19:19:31.135Z"
+    },
+    {
+      "category": "cloud-computing",
+      "angle": "comprendre les zones de disponibilité",
+      "selectedAt": "2026-09-03T22:15:32.604Z",
+      "runId": "20260903T221532Z",
+      "at": "2026-09-03T22:18:17.963Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
