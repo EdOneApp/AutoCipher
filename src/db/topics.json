@@ -97,6 +97,13 @@
       "selectedAt": "2026-09-03T22:15:32.604Z",
       "runId": "20260903T221532Z",
       "at": "2026-09-03T22:18:17.963Z"
+    },
+    {
+      "category": "cloud-computing",
+      "angle": "Kubernetes est-il vraiment nécessaire",
+      "selectedAt": "2026-09-04T03:23:27.016Z",
+      "runId": "20260904T032327Z",
+      "at": "2026-09-04T03:26:09.137Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."

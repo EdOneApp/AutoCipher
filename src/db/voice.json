@@ -1,5 +1,5 @@
 {
-  "last": "fr-BE-CharlineNeural",
+  "last": "fr-FR-DeniseNeural",
   "recent": [
     "fr-CH-FabriceNeural",
     "fr-FR-EloiseNeural",
@@ -7,9 +7,10 @@
     "fr-FR-DeniseNeural",
     "fr-CH-FabriceNeural",
     "fr-CH-ArianeNeural",
-    "fr-BE-CharlineNeural"
+    "fr-BE-CharlineNeural",
+    "fr-FR-DeniseNeural"
   ],
   "pool_size": 9,
-  "updatedAt": "2026-09-03T22:15:45+00:00",
+  "updatedAt": "2026-09-04T03:23:49+00:00",
   "_comment": "Rotation des voix off edge-tts. `recent` = voix des derniers runs, évitées au prochain tirage. Géré par src/generate_voice.py, committé par le workflow."
 }
