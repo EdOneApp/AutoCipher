@@ -111,6 +111,13 @@
       "selectedAt": "2026-09-04T12:32:11.765Z",
       "runId": "20260904T123211Z",
       "at": "2026-09-04T12:35:01.298Z"
+    },
+    {
+      "category": "data-science",
+      "angle": "pourquoi vos modèles overfittent",
+      "selectedAt": "2026-09-04T18:59:52.051Z",
+      "runId": "20260904T185952Z",
+      "at": "2026-09-04T19:02:42.148Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
