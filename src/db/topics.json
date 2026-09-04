@@ -118,6 +118,13 @@
       "selectedAt": "2026-09-04T18:59:52.051Z",
       "runId": "20260904T185952Z",
       "at": "2026-09-04T19:02:42.148Z"
+    },
+    {
+      "category": "developpement-desktop",
+      "angle": "pourquoi Electron consomme autant de RAM",
+      "selectedAt": "2026-09-04T22:04:22.562Z",
+      "runId": "20260904T220422Z",
+      "at": "2026-09-04T22:06:52.486Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
