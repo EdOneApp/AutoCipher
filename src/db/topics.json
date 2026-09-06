@@ -160,6 +160,13 @@
       "selectedAt": "2026-09-06T03:24:36.298Z",
       "runId": "20260906T032436Z",
       "at": "2026-09-06T03:29:06.912Z"
+    },
+    {
+      "category": "data-analyse",
+      "angle": "Polars vs Pandas : le match",
+      "selectedAt": "2026-09-06T11:58:52.624Z",
+      "runId": "20260906T115852Z",
+      "at": "2026-09-06T12:00:56.836Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
