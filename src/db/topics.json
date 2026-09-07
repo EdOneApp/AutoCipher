@@ -195,6 +195,13 @@
       "selectedAt": "2026-09-07T13:59:47.876Z",
       "runId": "20260907T135947Z",
       "at": "2026-09-07T14:02:18.688Z"
+    },
+    {
+      "category": "intelligence-artificielle",
+      "angle": "ce qu'est vraiment un embedding",
+      "selectedAt": "2026-09-07T19:50:42.686Z",
+      "runId": "20260907T195042Z",
+      "at": "2026-09-07T19:53:13.463Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
