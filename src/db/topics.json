@@ -223,6 +223,13 @@
       "selectedAt": "2026-09-08T12:39:56.941Z",
       "runId": "20260908T123956Z",
       "at": "2026-09-08T12:41:55.404Z"
+    },
+    {
+      "category": "developpement-mobile",
+      "angle": "Kotlin Multiplatform en production",
+      "selectedAt": "2026-09-08T19:24:54.092Z",
+      "runId": "20260908T192454Z",
+      "at": "2026-09-08T19:27:25.486Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
