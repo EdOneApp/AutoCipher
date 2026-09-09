@@ -244,6 +244,13 @@
       "selectedAt": "2026-09-09T03:34:06.192Z",
       "runId": "20260909T033406Z",
       "at": "2026-09-09T03:36:41.378Z"
+    },
+    {
+      "category": "cloud-computing",
+      "angle": "l'egress, ce coût cloud qu'on oublie",
+      "selectedAt": "2026-09-09T12:45:42.221Z",
+      "runId": "20260909T124542Z",
+      "at": "2026-09-09T12:48:20.643Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
