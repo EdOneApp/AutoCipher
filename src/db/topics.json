@@ -272,6 +272,13 @@
       "selectedAt": "2026-09-10T03:31:36.010Z",
       "runId": "20260910T033136Z",
       "at": "2026-09-10T03:34:32.252Z"
+    },
+    {
+      "category": "economie",
+      "angle": "PIB : ce que ce chiffre ne dit pas",
+      "selectedAt": "2026-09-10T12:45:21.660Z",
+      "runId": "20260910T124521Z",
+      "at": "2026-09-10T12:47:26.972Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
