@@ -286,6 +286,13 @@
       "selectedAt": "2026-09-10T19:05:45.645Z",
       "runId": "20260910T190545Z",
       "at": "2026-09-10T19:08:19.193Z"
+    },
+    {
+      "category": "developpement-desktop",
+      "angle": "Tauri, l'alternative légère à Electron",
+      "selectedAt": "2026-09-10T22:14:41.445Z",
+      "runId": "20260910T221441Z",
+      "at": "2026-09-10T22:17:15.054Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
