@@ -307,6 +307,13 @@
       "selectedAt": "2026-09-11T12:39:00.512Z",
       "runId": "20260911T123900Z",
       "at": "2026-09-11T12:41:47.334Z"
+    },
+    {
+      "category": "developpement-web",
+      "angle": "les Web Components sont-ils enfin prêts",
+      "selectedAt": "2026-09-11T19:08:12.116Z",
+      "runId": "20260911T190812Z",
+      "at": "2026-09-11T19:10:48.018Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
