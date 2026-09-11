@@ -1,7 +1,6 @@
 {
-  "last": "fr-CH-ArianeNeural",
+  "last": "fr-FR-HenriNeural",
   "recent": [
-    "fr-FR-RemyMultilingualNeural",
     "fr-FR-VivienneMultilingualNeural",
     "fr-BE-CharlineNeural",
     "fr-BE-GerardNeural",
@@ -12,9 +11,10 @@
     "fr-CH-FabriceNeural",
     "fr-FR-RemyMultilingualNeural",
     "fr-BE-GerardNeural",
-    "fr-CH-ArianeNeural"
+    "fr-CH-ArianeNeural",
+    "fr-FR-HenriNeural"
   ],
   "pool_size": 9,
-  "updatedAt": "2026-09-10T22:14:49+00:00",
+  "updatedAt": "2026-09-11T03:29:35+00:00",
   "_comment": "Rotation des voix off edge-tts. `recent` = voix des derniers runs, évitées au prochain tirage. Géré par src/generate_voice.py, committé par le workflow."
 }
