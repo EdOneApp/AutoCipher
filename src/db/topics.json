@@ -314,6 +314,13 @@
       "selectedAt": "2026-09-11T19:08:12.116Z",
       "runId": "20260911T190812Z",
       "at": "2026-09-11T19:10:48.018Z"
+    },
+    {
+      "category": "finance",
+      "angle": "ETF vs actions individuelles",
+      "selectedAt": "2026-09-11T22:13:03.312Z",
+      "runId": "20260911T221303Z",
+      "at": "2026-09-11T22:15:36.477Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
