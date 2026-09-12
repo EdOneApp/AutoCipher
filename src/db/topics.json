@@ -321,6 +321,13 @@
       "selectedAt": "2026-09-11T22:13:03.312Z",
       "runId": "20260911T221303Z",
       "at": "2026-09-11T22:15:36.477Z"
+    },
+    {
+      "category": "intelligence-artificielle",
+      "angle": "les agents IA, hype ou réalité",
+      "selectedAt": "2026-09-12T03:34:53.128Z",
+      "runId": "20260912T033453Z",
+      "at": "2026-09-12T03:37:11.924Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
