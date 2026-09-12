@@ -328,6 +328,13 @@
       "selectedAt": "2026-09-12T03:34:53.128Z",
       "runId": "20260912T033453Z",
       "at": "2026-09-12T03:37:11.924Z"
+    },
+    {
+      "category": "data-science",
+      "angle": "feature engineering en 60 secondes",
+      "selectedAt": "2026-09-12T11:59:49.009Z",
+      "runId": "20260912T115949Z",
+      "at": "2026-09-12T12:02:19.398Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
