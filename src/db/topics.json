@@ -335,6 +335,13 @@
       "selectedAt": "2026-09-12T11:59:49.009Z",
       "runId": "20260912T115949Z",
       "at": "2026-09-12T12:02:19.398Z"
+    },
+    {
+      "category": "developpement-web",
+      "angle": "pourquoi tout le monde parle de HTMX",
+      "selectedAt": "2026-09-12T18:18:22.917Z",
+      "runId": "20260912T181822Z",
+      "at": "2026-09-12T18:20:52.034Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
