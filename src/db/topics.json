@@ -342,6 +342,13 @@
       "selectedAt": "2026-09-12T18:18:22.917Z",
       "runId": "20260912T181822Z",
       "at": "2026-09-12T18:20:52.034Z"
+    },
+    {
+      "category": "developpement-web",
+      "angle": "Tailwind CSS : pour ou contre",
+      "selectedAt": "2026-09-12T21:56:14.919Z",
+      "runId": "20260912T215614Z",
+      "at": "2026-09-12T21:58:52.706Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
