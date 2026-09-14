@@ -398,6 +398,13 @@
       "selectedAt": "2026-09-14T20:17:14.802Z",
       "runId": "20260914T201714Z",
       "at": "2026-09-14T20:20:09.618Z"
+    },
+    {
+      "category": "economie",
+      "angle": "l'inflation expliquée avec un panier de courses",
+      "selectedAt": "2026-09-14T22:56:39.647Z",
+      "runId": "20260914T225639Z",
+      "at": "2026-09-14T22:59:26.447Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
