@@ -391,6 +391,13 @@
       "selectedAt": "2026-09-14T14:45:30.126Z",
       "runId": "20260914T144530Z",
       "at": "2026-09-14T14:48:03.771Z"
+    },
+    {
+      "category": "intelligence-artificielle",
+      "angle": "MoE : les modèles à mélange d'experts",
+      "selectedAt": "2026-09-14T20:17:14.802Z",
+      "runId": "20260914T201714Z",
+      "at": "2026-09-14T20:20:09.618Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
