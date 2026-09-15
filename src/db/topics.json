@@ -419,6 +419,13 @@
       "selectedAt": "2026-09-15T13:09:42.072Z",
       "runId": "20260915T130942Z",
       "at": "2026-09-15T13:12:45.269Z"
+    },
+    {
+      "category": "data-analyse",
+      "angle": "les erreurs classiques en visualisation de données",
+      "selectedAt": "2026-09-15T19:40:09.659Z",
+      "runId": "20260915T194009Z",
+      "at": "2026-09-15T19:42:53.184Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
