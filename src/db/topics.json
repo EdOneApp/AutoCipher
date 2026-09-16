@@ -433,6 +433,13 @@
       "selectedAt": "2026-09-15T22:41:36.732Z",
       "runId": "20260915T224136Z",
       "at": "2026-09-15T22:44:40.979Z"
+    },
+    {
+      "category": "vibe-coding",
+      "angle": "coder une app entière au prompt : mon retour",
+      "selectedAt": "2026-09-16T03:47:00.393Z",
+      "runId": "20260916T034700Z",
+      "at": "2026-09-16T03:49:40.115Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
