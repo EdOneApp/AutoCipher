@@ -447,6 +447,13 @@
       "selectedAt": "2026-09-16T13:08:47.555Z",
       "runId": "20260916T130847Z",
       "at": "2026-09-16T13:11:26.995Z"
+    },
+    {
+      "category": "finance",
+      "angle": "les intérêts composés en 60 secondes",
+      "selectedAt": "2026-09-16T19:32:02.820Z",
+      "runId": "20260916T193202Z",
+      "at": "2026-09-16T19:34:51.257Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
