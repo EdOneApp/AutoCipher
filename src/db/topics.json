@@ -538,6 +538,13 @@
       "selectedAt": "2026-09-19T18:34:17.383Z",
       "runId": "20260919T183417Z",
       "at": "2026-09-19T18:36:55.987Z"
+    },
+    {
+      "category": "developpement-web",
+      "angle": "Vite vs Webpack en 2026",
+      "selectedAt": "2026-09-19T22:05:56.430Z",
+      "runId": "20260919T220556Z",
+      "at": "2026-09-19T22:08:34.930Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
