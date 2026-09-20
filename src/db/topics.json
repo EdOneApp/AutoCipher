@@ -545,6 +545,13 @@
       "selectedAt": "2026-09-19T22:05:56.430Z",
       "runId": "20260919T220556Z",
       "at": "2026-09-19T22:08:34.930Z"
+    },
+    {
+      "category": "data-science",
+      "angle": "MLflow pour suivre vos expériences",
+      "selectedAt": "2026-09-20T03:52:00.271Z",
+      "runId": "20260920T035200Z",
+      "at": "2026-09-20T03:54:01.579Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
