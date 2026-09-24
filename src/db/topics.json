@@ -664,6 +664,13 @@
       "selectedAt": "2026-09-24T03:36:21.952Z",
       "runId": "20260924T033621Z",
       "at": "2026-09-24T03:38:53.843Z"
+    },
+    {
+      "category": "outils-dev",
+      "angle": "Docker expliqué à un débutant",
+      "selectedAt": "2026-09-24T13:13:21.049Z",
+      "runId": "20260924T131321Z",
+      "at": "2026-09-24T13:16:04.560Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
