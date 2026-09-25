@@ -699,6 +699,13 @@
       "selectedAt": "2026-09-25T13:16:45.424Z",
       "runId": "20260925T131645Z",
       "at": "2026-09-25T13:19:21.215Z"
+    },
+    {
+      "category": "developpement-desktop",
+      "angle": "créer une app desktop avec Rust",
+      "selectedAt": "2026-09-25T19:59:23.279Z",
+      "runId": "20260925T195923Z",
+      "at": "2026-09-25T20:02:08.770Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
