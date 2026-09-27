@@ -755,6 +755,13 @@
       "selectedAt": "2026-09-27T13:33:09.312Z",
       "runId": "20260927T133309Z",
       "at": "2026-09-27T13:35:42.484Z"
+    },
+    {
+      "category": "outils-dev",
+      "angle": "comprendre le monorepo en 60 secondes",
+      "selectedAt": "2026-09-27T19:44:16.129Z",
+      "runId": "20260927T194416Z",
+      "at": "2026-09-27T19:46:08.029Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
