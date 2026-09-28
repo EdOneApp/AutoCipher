@@ -783,6 +783,13 @@
       "selectedAt": "2026-09-28T16:28:21.757Z",
       "runId": "20260928T162821Z",
       "at": "2026-09-28T16:31:06.378Z"
+    },
+    {
+      "category": "intelligence-artificielle",
+      "angle": "quantization des modèles : pourquoi ça marche",
+      "selectedAt": "2026-09-28T21:49:31.773Z",
+      "runId": "20260928T214931Z",
+      "at": "2026-09-28T21:52:19.084Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
