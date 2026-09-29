@@ -790,6 +790,13 @@
       "selectedAt": "2026-09-28T21:49:31.773Z",
       "runId": "20260928T214931Z",
       "at": "2026-09-28T21:52:19.084Z"
+    },
+    {
+      "category": "developpement-mobile",
+      "angle": "Flutter vs React Native aujourd'hui",
+      "selectedAt": "2026-09-29T00:09:53.770Z",
+      "runId": "20260929T000953Z",
+      "at": "2026-09-29T00:12:17.373Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
