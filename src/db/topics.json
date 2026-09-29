@@ -811,6 +811,13 @@
       "selectedAt": "2026-09-29T14:38:42.429Z",
       "runId": "20260929T143842Z",
       "at": "2026-09-29T14:40:55.065Z"
+    },
+    {
+      "category": "outils-dev",
+      "angle": "pourquoi passer à un terminal moderne",
+      "selectedAt": "2026-09-29T20:40:23.989Z",
+      "runId": "20260929T204023Z",
+      "at": "2026-09-29T20:43:16.493Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
