@@ -839,6 +839,13 @@
       "selectedAt": "2026-09-30T14:44:23.774Z",
       "runId": "20260930T144423Z",
       "at": "2026-09-30T14:47:10.613Z"
+    },
+    {
+      "category": "developpement-web",
+      "angle": "les nouveautés de React 19",
+      "selectedAt": "2026-09-30T20:45:53.217Z",
+      "runId": "20260930T204553Z",
+      "at": "2026-09-30T20:48:31.208Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
