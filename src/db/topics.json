@@ -853,6 +853,13 @@
       "selectedAt": "2026-09-30T23:25:59.160Z",
       "runId": "20260930T232559Z",
       "at": "2026-09-30T23:28:21.061Z"
+    },
+    {
+      "category": "finance",
+      "angle": "ce qu'est un ratio de Sharpe",
+      "selectedAt": "2026-10-01T04:39:18.626Z",
+      "runId": "20261001T043918Z",
+      "at": "2026-10-01T04:41:49.001Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
