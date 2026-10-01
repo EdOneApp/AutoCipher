@@ -867,6 +867,13 @@
       "selectedAt": "2026-10-01T15:20:12.785Z",
       "runId": "20261001T152012Z",
       "at": "2026-10-01T15:22:40.271Z"
+    },
+    {
+      "category": "economie",
+      "angle": "pourquoi les banques centrales montent les taux",
+      "selectedAt": "2026-10-01T20:59:13.082Z",
+      "runId": "20261001T205913Z",
+      "at": "2026-10-01T21:01:55.931Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
