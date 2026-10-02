@@ -895,6 +895,13 @@
       "selectedAt": "2026-10-02T14:29:06.186Z",
       "runId": "20261002T142906Z",
       "at": "2026-10-02T14:31:19.250Z"
+    },
+    {
+      "category": "developpement-mobile",
+      "angle": "les Progressive Web Apps en 2026",
+      "selectedAt": "2026-10-02T20:37:38.363Z",
+      "runId": "20261002T203738Z",
+      "at": "2026-10-02T20:40:03.189Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
