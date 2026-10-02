@@ -888,6 +888,13 @@
       "selectedAt": "2026-10-02T04:31:06.371Z",
       "runId": "20261002T043106Z",
       "at": "2026-10-02T04:33:26.406Z"
+    },
+    {
+      "category": "finance",
+      "angle": "diversification : le seul repas gratuit",
+      "selectedAt": "2026-10-02T14:29:06.186Z",
+      "runId": "20261002T142906Z",
+      "at": "2026-10-02T14:31:19.250Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
