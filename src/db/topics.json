@@ -902,6 +902,13 @@
       "selectedAt": "2026-10-02T20:37:38.363Z",
       "runId": "20261002T203738Z",
       "at": "2026-10-02T20:40:03.189Z"
+    },
+    {
+      "category": "cloud-computing",
+      "angle": "serverless : quand ça coûte plus cher",
+      "selectedAt": "2026-10-02T23:32:54.701Z",
+      "runId": "20261002T233254Z",
+      "at": "2026-10-02T23:35:32.335Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
