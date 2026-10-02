@@ -881,6 +881,13 @@
       "selectedAt": "2026-10-01T23:40:53.662Z",
       "runId": "20261001T234053Z",
       "at": "2026-10-01T23:43:27.279Z"
+    },
+    {
+      "category": "economie",
+      "angle": "l'effet de la démographie sur la croissance",
+      "selectedAt": "2026-10-02T04:31:06.371Z",
+      "runId": "20261002T043106Z",
+      "at": "2026-10-02T04:33:26.406Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
