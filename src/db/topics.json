@@ -916,6 +916,13 @@
       "selectedAt": "2026-10-03T04:14:21.173Z",
       "runId": "20261003T041421Z",
       "at": "2026-10-03T04:16:45.254Z"
+    },
+    {
+      "category": "outils-dev",
+      "angle": "les extensions VS Code qui font gagner du temps",
+      "selectedAt": "2026-10-03T13:03:34.382Z",
+      "runId": "20261003T130334Z",
+      "at": "2026-10-03T13:06:17.155Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
