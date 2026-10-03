@@ -923,6 +923,13 @@
       "selectedAt": "2026-10-03T13:03:34.382Z",
       "runId": "20261003T130334Z",
       "at": "2026-10-03T13:06:17.155Z"
+    },
+    {
+      "category": "vibe-coding",
+      "angle": "quand NE PAS faire confiance à l'IA qui code",
+      "selectedAt": "2026-10-03T19:11:27.339Z",
+      "runId": "20261003T191127Z",
+      "at": "2026-10-03T19:13:52.248Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
