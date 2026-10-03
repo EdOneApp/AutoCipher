@@ -930,6 +930,13 @@
       "selectedAt": "2026-10-03T19:11:27.339Z",
       "runId": "20261003T191127Z",
       "at": "2026-10-03T19:13:52.248Z"
+    },
+    {
+      "category": "data-analyse",
+      "angle": "SQL : les fenêtres analytiques expliquées",
+      "selectedAt": "2026-10-03T22:39:01.446Z",
+      "runId": "20261003T223901Z",
+      "at": "2026-10-03T22:41:32.455Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
