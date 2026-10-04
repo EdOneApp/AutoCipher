@@ -937,6 +937,13 @@
       "selectedAt": "2026-10-03T22:39:01.446Z",
       "runId": "20261003T223901Z",
       "at": "2026-10-03T22:41:32.455Z"
+    },
+    {
+      "category": "outils-dev",
+      "angle": "les raccourcis Git que personne n'utilise",
+      "selectedAt": "2026-10-04T04:45:32.950Z",
+      "runId": "20261004T044532Z",
+      "at": "2026-10-04T04:48:04.511Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
