@@ -972,6 +972,13 @@
       "selectedAt": "2026-10-05T04:34:01.676Z",
       "runId": "20261005T043401Z",
       "at": "2026-10-05T04:36:36.973Z"
+    },
+    {
+      "category": "intelligence-artificielle",
+      "angle": "fine-tuning vs prompt engineering",
+      "selectedAt": "2026-10-05T16:49:18.679Z",
+      "runId": "20261005T164918Z",
+      "at": "2026-10-05T16:51:30.742Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
