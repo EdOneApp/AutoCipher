@@ -993,6 +993,13 @@
       "selectedAt": "2026-10-06T01:07:10.589Z",
       "runId": "20261006T010710Z",
       "at": "2026-10-06T01:09:56.070Z"
+    },
+    {
+      "category": "vibe-coding",
+      "angle": "les bonnes pratiques du vibe coding",
+      "selectedAt": "2026-10-06T05:19:39.126Z",
+      "runId": "20261006T051939Z",
+      "at": "2026-10-06T05:22:28.486Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
