@@ -1028,6 +1028,13 @@
       "selectedAt": "2026-10-07T04:48:21.155Z",
       "runId": "20261007T044821Z",
       "at": "2026-10-07T04:51:02.329Z"
+    },
+    {
+      "category": "intelligence-artificielle",
+      "angle": "RAG expliqué simplement",
+      "selectedAt": "2026-10-07T21:15:49.225Z",
+      "runId": "20261007T211549Z",
+      "at": "2026-10-07T21:18:20.194Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
