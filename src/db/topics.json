@@ -1042,6 +1042,13 @@
       "selectedAt": "2026-10-08T00:00:44.583Z",
       "runId": "20261008T000044Z",
       "at": "2026-10-08T00:03:28.514Z"
+    },
+    {
+      "category": "developpement-mobile",
+      "angle": "SwiftUI : ce qui a changé",
+      "selectedAt": "2026-10-08T04:58:36.280Z",
+      "runId": "20261008T045836Z",
+      "at": "2026-10-08T05:00:40.395Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
