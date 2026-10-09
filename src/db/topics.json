@@ -1084,6 +1084,13 @@
       "selectedAt": "2026-10-09T15:00:04.604Z",
       "runId": "20261009T150004Z",
       "at": "2026-10-09T15:02:10.237Z"
+    },
+    {
+      "category": "data-analyse",
+      "angle": "DuckDB, la base analytique dans un fichier",
+      "selectedAt": "2026-10-09T20:46:31.300Z",
+      "runId": "20261009T204631Z",
+      "at": "2026-10-09T20:49:04.709Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
