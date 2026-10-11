@@ -1133,6 +1133,13 @@
       "selectedAt": "2026-10-11T04:32:48.174Z",
       "runId": "20261011T043248Z",
       "at": "2026-10-11T04:35:02.729Z"
+    },
+    {
+      "category": "data-science",
+      "angle": "le piège du data leakage",
+      "selectedAt": "2026-10-11T14:38:57.319Z",
+      "runId": "20261011T143857Z",
+      "at": "2026-10-11T14:41:38.096Z"
     }
   ],
   "_comment": "Sujets déjà traités, du plus ancien au plus récent. Alimenté automatiquement par src/select_topic.js pour éviter les répétitions."
